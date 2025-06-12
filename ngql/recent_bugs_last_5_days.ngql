@@ -1,0 +1,8 @@
+# Query for bugs created within last 5 days in NebulaGraph
+# Uses the 'id' tag where property 'Modified' stores the bug timestamp string
+
+USE graphdb;
+
+MATCH (b:id)
+WHERE datetime(b.Modified) >= datetime() - duration({days: 5})
+RETURN b.name AS bug_id, b.Title AS title, b.Modified AS modified;
